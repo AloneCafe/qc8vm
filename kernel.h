@@ -27,7 +27,7 @@ WORD PC;    // 程序计数器
 BYTE delayTimer;    // 延时定时器
 BYTE soundTimer;    // 声音定时器
 stack s;    // 16位堆栈
-BYTE gfx[32 + 10][64 + 10];   // 屏幕显示（64 x 32 分辨率），多 10 像素以防止栈溢出
+BYTE gfx[320][640];   // 屏幕显示（64 x 32 分辨率），纵横各扩大10倍空间以防止栈溢出
 BYTE keyState[16];  // 按键状态集
 char *programPath;  // 程序文件路径
 
@@ -70,7 +70,7 @@ static const BYTE fontSet[16][5] =
         };
 
 // 初始化虚拟机
-int init(char **argv);
+int init(int argc, char **argv);
 
 // 退出
 void quit();
@@ -91,7 +91,7 @@ void mainLoopThread();
 void subRenderLoopThread();
 
 //执行操作码
-int excuteOpcode(WORD opcode);
+int executeOpcode(WORD opcode);
 
 // 取下一个操作码
 WORD getNextOpcode();

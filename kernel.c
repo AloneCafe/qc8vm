@@ -47,7 +47,7 @@ void kernelLoopThread() {
         usleep(1600);
         WORD opcode = getNextOpcode();
         // 执行操作码opcode，执行失败，返回 EXIT_FAILURE
-        if (excuteOpcode(opcode) == EXIT_FAILURE) {
+        if (executeOpcode(opcode) == EXIT_FAILURE) {
             quit();
         }
     }
@@ -243,7 +243,7 @@ void mainLoopThread() {
     }
 }
 
-int excuteOpcode(WORD opcode) {
+int executeOpcode(WORD opcode) {
     // 从左到右
     // o1: 操作码opcode的第一位
     // o2: 操作码opcode的第二位
@@ -440,12 +440,13 @@ void quit() {
 }
 
 // 初始化虚拟机
-int init(char **argv) {
+int init(int argc, char **argv) {
     // 判定路径是否正确，为空则返回 EXIT_FAILURE
     if ((programPath = argv[1]) == (void *) 0) {
-        printf("Quick CHIP-8 Virtual Machine\nUsage: %s <binary file>\n", argv[0]);
+        printf("Quick CHIP-8 Virtual Machine\nUsage: %s [chip-8_binary_file]\n", argv[0]);
         return EXIT_FAILURE;
     }
+
 
     // 延时定时器、声音定时器、地址寄存器置 0；
     // 程序计数器置为 0x200（512字节处），程序从此运行；
@@ -475,7 +476,7 @@ int init(char **argv) {
     // 以只读的二进制方式打开目标程序文件，打开错误则返回 EXIT_FAILURE
     FILE *in;
     if ((in = fopen(programPath, "rb")) == (void *) 0) {
-        fprintf(stderr, "[ERROR] Can not load the program file!");
+        fprintf(stderr, "[ERROR] Can not load the binary file!\n");
         return EXIT_FAILURE;
     }
 
@@ -493,9 +494,9 @@ int init(char **argv) {
 
     memset(box, 0, sizeof(box));
 
-    kernelThread = SDL_CreateThread(kernelLoopThread, NULL, NULL);
-    timerThread = SDL_CreateThread(timerLoopThread, NULL, NULL);
-    mainRenderThread = SDL_CreateThread(mainRenderLoopThread, NULL, NULL);
+    kernelThread = SDL_CreateThread((SDL_ThreadFunction) kernelLoopThread, NULL, NULL);
+    timerThread = SDL_CreateThread((SDL_ThreadFunction) timerLoopThread, NULL, NULL);
+    mainRenderThread = SDL_CreateThread((SDL_ThreadFunction) mainRenderLoopThread, NULL, NULL);
     //subRenderThread = SDL_CreateThread(subRenderLoopThread, NULL, NULL);
 
     // 主线程（事件处理）
