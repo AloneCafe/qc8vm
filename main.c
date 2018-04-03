@@ -173,8 +173,6 @@ void quit(int exitCode) {
 
 void mainLoop() {
 
-
-
     /* 置退出信号为 0 */
     quitSignal = 0;
     /* 若退出信号为 1 则跳出循环 */
