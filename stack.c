@@ -19,7 +19,7 @@ void stackFree(stack *s) {
 void stackPush(stack *s, WORD elem) {
     if (s->length >= s->capacity) {
         fputs("stack overflow.\n", stderr);
-        exit(1);
+        quit(EXIT_FAILURE);
     }
 
     *(s->p + s->length) = elem;
@@ -29,7 +29,7 @@ void stackPush(stack *s, WORD elem) {
 WORD stackPop(stack *s) {
     if (s->length <= 0) {
         fputs("stack overflow.\n", stderr);
-        exit(1);
+        quit(EXIT_FAILURE);
     }
 
     s->length--;
@@ -39,7 +39,7 @@ WORD stackPop(stack *s) {
 WORD stackTop(stack *s) {
     if (s->length <= 0) {
         fputs("stack overflow.\n", stderr);
-        exit(1);
+        quit(EXIT_FAILURE);
     }
 
     return *(s->p + s->length - 1);
