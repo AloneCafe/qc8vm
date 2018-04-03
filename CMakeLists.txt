@@ -5,4 +5,4 @@ set(CMAKE_C_STANDARD 99)
 
 link_libraries(SDL2 SDL2main)
 
-add_executable(qc8vm main.c kernel.c kernel.h stack.c stack.h)
+add_executable(qc8vm main.c kernel.c kernel.h stack.c stack.h common.h renderer.c renderer.h timer.c timer.h keyboard.c keyboard.h main.h opcode.c opcode.h)
