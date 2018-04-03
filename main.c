@@ -107,7 +107,6 @@ int init(int argc, char **argv) {
 
     /* 信号Flag初始化 */
     needRenderSignal = 0;
-    /* doRendringSignal = 0; */
     keyBlockSignal = 0;
     quitSignal = 0;
 
@@ -152,7 +151,10 @@ int init(int argc, char **argv) {
 }
 
 /* 虚拟机退出前的资源释放处理 */
-void quit() {
+void quit(int exitCode) {
+    /* 释放堆栈 */
+    stackFree(&s);
+
     /* 释放其他线程 */
     SDL_DetachThread(kernelThread);
     SDL_DetachThread(timerThread);
@@ -162,6 +164,8 @@ void quit() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+
+    exit(exitCode);
 }
 
 void mainLoopThread() {
@@ -180,7 +184,7 @@ void mainLoopThread() {
                 /* 若用户退出，则置退出信号为 1 */
                 case SDL_QUIT:
                     quitSignal = 1;
-                    break;
+                    quit(EXIT_SUCCESS);
                     /* 用户按下键，执行对应的按下键处理 */
                 case SDL_KEYDOWN:
                     switch (event.key.keysym.sym) {
@@ -350,7 +354,7 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
-    quit();
+    quit(EXIT_SUCCESS);
 
     return 0;
 }

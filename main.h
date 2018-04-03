@@ -12,7 +12,7 @@ extern "C"
 int init(int argc, char **argv);
 
 /* 退出 */
-void quit();
+void quit(int exitCode);
 
 /* 事件循环线程 */
 void mainLoopThread();
