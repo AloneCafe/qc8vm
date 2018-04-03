@@ -1,7 +1,7 @@
 #include "stack.h"
 
 void stackInit(stack *s, int capacity) {
-    s->p = (uint16_t *) malloc(sizeof(uint16_t) * capacity);
+    s->p = (WORD *) malloc(sizeof(WORD) * capacity);
     s->capacity = capacity;
     s->length = 0;
 }
@@ -16,7 +16,7 @@ void stackFree(stack *s) {
     free(s->p);
 }
 
-void stackPush(stack *s, uint16_t elem) {
+void stackPush(stack *s, WORD elem) {
     if (s->length >= s->capacity) {
         fputs("stack overflow.\n", stderr);
         exit(1);
@@ -26,7 +26,7 @@ void stackPush(stack *s, uint16_t elem) {
     s->length++;
 }
 
-uint16_t stackPop(stack *s) {
+WORD stackPop(stack *s) {
     if (s->length <= 0) {
         fputs("stack overflow.\n", stderr);
         exit(1);
@@ -36,7 +36,7 @@ uint16_t stackPop(stack *s) {
     return *(s->p + s->length);
 }
 
-uint16_t stackTop(stack *s) {
+WORD stackTop(stack *s) {
     if (s->length <= 0) {
         fputs("stack overflow.\n", stderr);
         exit(1);

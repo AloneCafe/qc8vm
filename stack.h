@@ -1,15 +1,12 @@
 #ifndef __STACK_H__
 #define __STACK_H__
 
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-typedef struct stack {
-    int capacity;   // 总容量
-    int length; // 当前长度
-    uint16_t *p;    // 栈
-} stack;
+#include "common.h"
 
 void stackInit(stack *s, int capacity);
 
@@ -17,11 +14,12 @@ void stackClear(stack *s);
 
 void stackFree(stack *s);
 
-void stackPush(stack *s, uint16_t elem);
+void stackPush(stack *s, WORD elem);
 
-uint16_t stackPop(stack *s);
+WORD stackPop(stack *s);
 
-uint16_t stackTop(stack *s);
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif
