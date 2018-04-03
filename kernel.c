@@ -11,7 +11,7 @@ void kernelThreadProc() {
         WORD opcode = getNextOpcode();
         /* 执行操作码opcode，若执行失败，则执行quit()，结束程序 */
         if (executeOpcode(opcode) == EXIT_FAILURE) {
-            quit();
+            quit(EXIT_FAILURE);
         }
     }
 }
@@ -162,7 +162,7 @@ int executeOpcode(WORD opcode) {
         default:
             /* 未知操作码，报错提示，opcode执行失败 */
             fprintf(stderr, "[ERROR] Illegal Opcode: %x, the virtual machine halted!\n", opcode);
-            exit(EXIT_FAILURE);
+            quit(EXIT_FAILURE);
     }
 
     return EXIT_SUCCESS;
