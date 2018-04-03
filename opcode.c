@@ -215,9 +215,9 @@ void _FX15(WORD opcode) {
     delayTimer = V[(opcode & 0x0F00) >> 8];
 }
 
-/* soundTimer = 寄存器 X */
+/* beepTimer = 寄存器 X */
 void _FX18(WORD opcode) {
-    soundTimer = V[(opcode & 0x0F00) >> 8];
+    beepTimer = V[(opcode & 0x0F00) >> 8];
 }
 
 /* I += 寄存器 X */

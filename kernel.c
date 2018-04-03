@@ -4,11 +4,15 @@
 void kernelThreadProc() {
     /* 大while循环 */
     while (1) {
+
+        /* 周期信号置为0，表示新周期开始 */
+        cycleSignal = 0;
+
         /* 将虚拟机运行频率控制在指定的Hz */
         usleep(1000000 / cfgFreq);
 
         /* 取指令 */
-        WORD opcode = getNextOpcode();
+        opcode = getNextOpcode();
         /* 执行操作码opcode，若执行失败，则执行quit()，结束程序 */
         if (executeOpcode(opcode) == EXIT_FAILURE) {
             quit(EXIT_FAILURE);
@@ -26,6 +30,7 @@ int executeOpcode(WORD opcode) {
      * o4: 操作码opcode的第四位
      * o3o4：操作码opcode的后两位
      */
+
     WORD o1 = (opcode & 0xF000) >> 12;
     WORD o2 = (opcode & 0x0F00) >> 8;
     /* WORD o3 = (opcode & 0x00F0) >> 4; */

@@ -92,7 +92,7 @@ int init(int argc, char **argv) {
     /* 延时定时器、声音定时器、地址寄存器置 0 */
     /* 程序计数器置为 0x200（512字节处），程序从此运行 */
     delayTimer = 0;
-    soundTimer = 0;
+    beepTimer = 0;
     I = 0;
     PC = 0x200;
 
@@ -105,12 +105,13 @@ int init(int argc, char **argv) {
     /* 将字体集（16x5）装入（0x00 ～ 0x80）的RAM内存中 */
     memcpy(RAM, fontSet, 80);
 
-    /* 信号Flag初始化 */
+    /* 信号量初始化 */
     needRenderSignal = 0;
+    cycleSignal = 0;
     keyBlockSignal = 0;
     quitSignal = 0;
 
-    /* 清空堆栈 */
+    /* 初始化堆栈 */
     stackInit(&s, 256);
 
     /* 以只读的二进制方式打开目标程序文件，打开错误则返回 EXIT_FAILURE */
@@ -139,13 +140,14 @@ int init(int argc, char **argv) {
     /* 清空 SDL 矩形 */
     memset(box, 0, sizeof(box));
 
-    /* 内核线程、定时器线程、绘图渲染线程 */
+    /* 调试线程、内核线程、定时器线程、绘图渲染线程 */
+    debugThread = SDL_CreateThread((SDL_ThreadFunction) debugThreadProc, NULL, NULL);
     kernelThread = SDL_CreateThread((SDL_ThreadFunction) kernelThreadProc, NULL, NULL);
     timerThread = SDL_CreateThread((SDL_ThreadFunction) timerThreadProc, NULL, NULL);
     renderThread = SDL_CreateThread((SDL_ThreadFunction) renderThreadProc, NULL, NULL);
 
     /* 主线程（事件处理）*/
-    mainLoopThread();
+    mainLoop();
 
     return EXIT_SUCCESS;
 }
@@ -156,11 +158,12 @@ void quit(int exitCode) {
     stackFree(&s);
 
     /* 释放其他线程 */
+    SDL_DetachThread(debugThread);
     SDL_DetachThread(kernelThread);
     SDL_DetachThread(timerThread);
     SDL_DetachThread(renderThread);
 
-    /* 销毁Renderer、销毁窗口、退出SD L*/
+    /* 销毁Renderer、销毁窗口、退出SDL */
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -168,7 +171,10 @@ void quit(int exitCode) {
     exit(exitCode);
 }
 
-void mainLoopThread() {
+void mainLoop() {
+
+
+
     /* 置退出信号为 0 */
     quitSignal = 0;
     /* 若退出信号为 1 则跳出循环 */
@@ -349,6 +355,9 @@ void mainLoopThread() {
 }
 
 int main(int argc, char **argv) {
+
+    /* SIGINT 中断处理，使用quit()函数 */
+    signal(SIGINT, quit);
 
     if (init(argc, argv) == EXIT_FAILURE) {
         return EXIT_FAILURE;

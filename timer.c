@@ -15,12 +15,12 @@ void timerThreadProc() {
         if (delayTimer > 0)
             delayTimer--;
 
-        /* 声音定时器，非 0 递减 */
-        if (soundTimer > 0)
-            soundTimer--;
+        /* 蜂鸣定时器，非 0 递减 */
+        if (beepTimer > 0)
+            beepTimer--;
 
-        /* 声音定时器，非 0 则报警 */
-        if (soundTimer > 0)
+        /* 蜂鸣定时器，非 0 则报警 */
+        if (beepTimer > 0)
             playBeep();
     }
 }

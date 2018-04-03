@@ -15,7 +15,7 @@ int init(int argc, char **argv);
 void quit(int exitCode);
 
 /* 事件循环线程 */
-void mainLoopThread();
+void mainLoop();
 
 #ifdef __cplusplus
 }

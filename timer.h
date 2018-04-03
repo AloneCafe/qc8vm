@@ -8,7 +8,7 @@ extern "C"
 
 #include "common.h"
 
-/* 定时器循环线程 */
+/* 定时器线程 */
 void timerThreadProc();
 
 /* 振铃操作 */

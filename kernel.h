@@ -8,7 +8,7 @@ extern "C"
 
 #include "common.h"
 
-/* 界面循环线程 */
+/* 内核线程 */
 void kernelThreadProc();
 
 /* 执行操作码 */

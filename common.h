@@ -15,7 +15,7 @@ extern "C"
 #include <SDL2/SDL.h>
 
 /* 当前程序版本 */
-#define VERSION "1.0.5"
+#define VERSION "1.1.0"
 
 /* 虚拟机默认参数常量 */
 #define DEFAULT_FREQ 800
@@ -43,6 +43,7 @@ typedef struct stack {
 #include "timer.h"
 #include "keyboard.h"
 #include "opcode.h"
+#include "debug.h"
 #include "main.h"
 
 BYTE RAM[0xFFF];    /* 4KB内存 */
@@ -50,7 +51,9 @@ BYTE V[16]; /* 16个8位通用寄存器 */
 WORD I; /* 16位地址寄存器 */
 WORD PC;    /* 程序计数器 */
 BYTE delayTimer;    /* 延时定时器 */
-BYTE soundTimer;    /* 声音定时器 */
+BYTE beepTimer;    /* 蜂鸣定时器 */
+WORD opcode;    /* 操作码opcode */
+
 /* 16位堆栈 */
 stack s;
 BYTE gfx[320][640];   /* 屏幕显示（64 x 32 分辨率），纵横各扩大10倍空间以防止栈溢出 */
@@ -60,6 +63,7 @@ char *programPath;  /* 程序文件路径 */
 SDL_Thread *kernelThread;   /* 内核线程 */
 SDL_Thread *timerThread;    /* 定时器线程 */
 SDL_Thread *renderThread;   /* 图形渲染线程 */
+SDL_Thread *debugThread;    /* 调试线程 */
 
 SDL_Window *window; /* SDL 窗口 */
 SDL_Renderer *renderer; /* SDL 渲染器 */
@@ -69,6 +73,7 @@ SDL_Event event;    /* SDL 事件 */
 SDL_Rect box[32 * 64];
 
 SIGNAL needRenderSignal;    /* 绘图信号，0为保持，1为绘图 */
+SIGNAL cycleSignal; /* 指令周期信号，1为周期完成 */
 SIGNAL quitSignal;  /* 程序退出信号，0为运行，1为退出 */
 SIGNAL keyBlockSignal;    /* 按键阻塞信号，0为畅通，1为阻塞 */
 
