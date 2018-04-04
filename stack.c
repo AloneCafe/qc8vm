@@ -37,7 +37,7 @@ WORD stackPop(stack *s) {
 WORD stackTop(stack *s) {
     if (s->length <= 0) {
         fputs("stack overflow.\n", stderr);
-        quit(EXIT_FAILURE);
+        finalize(EXIT_FAILURE);
     }
 
     return *(s->p + s->length - 1);

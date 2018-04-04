@@ -9,10 +9,16 @@ extern "C"
 #include "common.h"
 
 /* 初始化虚拟机 */
-int init(int argc, char **argv);
+int initialize(int argc, char **argv);
 
-/* 退出 */
+/* Ctrl-C 中断处理 */
+void terminate();
+
+/* 退出程序 */
 void quit(int exitCode);
+
+/* 虚拟机退出前的资源释放处理 */
+void finalize();
 
 /* 事件循环线程 */
 void mainLoop();

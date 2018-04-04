@@ -1,7 +1,7 @@
 #include "main.h"
 
 /* 初始化虚拟机 */
-int init(int argc, char **argv) {
+int initialize(int argc, char **argv) {
 
     /*
      * 参数配置
@@ -154,15 +154,24 @@ int init(int argc, char **argv) {
     return EXIT_SUCCESS;
 }
 
-/* 虚拟机退出前的资源释放处理 */
+/* Ctrl-C 中断处理 */
+void terminate() {
+    finalize();
+    raise(SIGKILL);
+}
+
 void quit(int exitCode) {
+    finalize();
+    exit(exitCode);
+}
+
+/* 虚拟机退出前的资源释放处理 */
+void finalize() {
     /* 释放其他线程 */
     SDL_DetachThread(renderThread);
     SDL_DetachThread(timerThread);
     SDL_DetachThread(kernelThread);
     SDL_DetachThread(debugThread);
-
-
 
     /* 销毁Renderer、销毁窗口、退出SDL */
     SDL_DestroyRenderer(renderer);
@@ -171,8 +180,6 @@ void quit(int exitCode) {
 
     /* 释放堆栈 */
     stackFree(&s);
-
-    exit(exitCode);
 }
 
 void mainLoop() {
@@ -359,9 +366,9 @@ void mainLoop() {
 int main(int argc, char **argv) {
 
     /* SIGINT 中断处理，使用quit()函数 */
-    signal(SIGINT, quit);
+    signal(SIGINT, terminate);
 
-    if (init(argc, argv) == EXIT_FAILURE) {
+    if (initialize(argc, argv) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
 
