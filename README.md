@@ -8,7 +8,7 @@
 
 
 ### 从源代码开始 ###
-##### 源码目录里，附带了 CMakeLists.txt 文件，在终端上可以使用 CMake 可以构建源代码 #####
+> 源码目录里，附带了 CMakeLists.txt 文件，在终端上可以使用 CMake 可以构建源代码
     
 1. 使用 Git 克隆源代码仓库: 
     * ``` git clone https://github.com/yenyuloong/qc8vm.git ```
