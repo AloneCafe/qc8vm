@@ -12,6 +12,7 @@ extern "C"
 #include <memory.h>
 #include <zconf.h>
 #include <unistd.h>
+#include <signal.h>
 #include <SDL2/SDL.h>
 
 /* 当前程序版本 */
