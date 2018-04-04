@@ -160,10 +160,13 @@ void quit(int exitCode) {
     stackFree(&s);
 
     /* 释放其他线程 */
-    SDL_DetachThread(debugThread);
-    SDL_DetachThread(kernelThread);
-    SDL_DetachThread(timerThread);
+
     SDL_DetachThread(renderThread);
+    SDL_DetachThread(timerThread);
+    SDL_DetachThread(kernelThread);
+    SDL_DetachThread(debugThread);
+
+
 
     /* 销毁Renderer、销毁窗口、退出SDL */
     SDL_DestroyRenderer(renderer);

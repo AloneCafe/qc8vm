@@ -11,8 +11,6 @@ void stackClear(stack *s) {
 }
 
 void stackFree(stack *s) {
-    s->length = 0;
-    s->capacity = 0;
     free(s->p);
 }
 
