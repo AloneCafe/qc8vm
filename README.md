@@ -4,7 +4,7 @@
 
 
 ### 构建依赖关系 ###
-* 本程序的图形界面调用了 SDL 函数库，需要用户在编译环境下，链接 SDL 函数库（2.0 using zlib license）
+* 本程序的图形渲染部分调用了 SDL 2.0 函数库，需要用户在编译环境下安装 [SDL 2.0 函数库](http://www.libsdl.org/download-2.0.php)（2.0 using zlib license）
 
 
 ### 从源代码开始 ###
