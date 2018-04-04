@@ -15,7 +15,7 @@ extern "C"
 #include <SDL2/SDL.h>
 
 /* 当前程序版本 */
-#define VERSION "1.1.0"
+#define VERSION "1.1.2"
 
 /* 虚拟机默认参数常量 */
 #define DEFAULT_FREQ 800
