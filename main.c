@@ -156,11 +156,7 @@ int init(int argc, char **argv) {
 
 /* 虚拟机退出前的资源释放处理 */
 void quit(int exitCode) {
-    /* 释放堆栈 */
-    stackFree(&s);
-
     /* 释放其他线程 */
-
     SDL_DetachThread(renderThread);
     SDL_DetachThread(timerThread);
     SDL_DetachThread(kernelThread);
@@ -172,6 +168,9 @@ void quit(int exitCode) {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+
+    /* 释放堆栈 */
+    stackFree(&s);
 
     exit(exitCode);
 }
