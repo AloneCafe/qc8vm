@@ -61,8 +61,9 @@ int init(int argc, char **argv) {
 
             case 'h':
                 printf("Quick CHIP-8 Virtual Machine\n");
-                printf("Usage: %s [options] [filepath]\n\n", argv[0]);
-                printf("Options:\n\t-f: Set the main frequency of the virtual machine. (default set to %dHz)\n",
+                printf("Usage: %s [-f <main-frequence>] [-c dark | light] [-p <pixel-size>] [-d] [-v] [-h] [filepath]\n\n",
+                       argv[0]);
+                printf("Options:\n\t-f: Set the main frequency while running. (default set to %dHz)\n",
                        DEFAULT_FREQ);
                 printf("\t-d: Run virtual machine in debug mode. (default set to %d)\n", DEFAULT_DEBUG_FLAG);
                 printf("\t-c: Set the render of theme to light or dark. (default set to %s)\n",
@@ -70,7 +71,7 @@ int init(int argc, char **argv) {
                 printf("\t-p: Set the size of every pixel. (default set to %d)\n", DEFAULT_PIXEL_SIZE);
                 printf("\t-v: Print version of the virtual machine.\n");
                 printf("\t-h: Print help information.\n\n");
-                printf("Filepath:\n\tThe file path of a CHIP-8 binary file (ROM) which can be run on the virtual machine.\n");
+                printf("Filepath:\n\tThe path of a CHIP-8 binary file (ROM) which can be run on the virtual machine.\n");
 
                 exit(EXIT_SUCCESS);
 
@@ -84,7 +85,8 @@ int init(int argc, char **argv) {
 
     /* 判定文件路径参数，若无文件路径参数，则返回 EXIT_FAILURE */
     if (argc == 1 || (programPath = (argv + optind)[0]) == (void *) 0) {
-        printf("Quick CHIP-8 Virtual Machine\nUsage: %s [options] [filepath]\n", argv[0]);
+        printf("Quick CHIP-8 Virtual Machine\nUsage: %s [-f <main-frequence>] [-c dark | light] [-p <pixel-size>] [-d] [-v] [-h] [filepath]\n",
+               argv[0]);
         return EXIT_FAILURE;
     }
 
