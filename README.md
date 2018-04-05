@@ -3,6 +3,9 @@
 * 本程序是一种简单的 CHIP-8 虚拟机的实现，使用 C 和 SDL 编写，这是采用 [MIT 许可证](https://mit-license.org) 授权的自由软件
 
 
+![demo](https://github.com/YenyuLoong/qc8vm/raw/master/gifs/demo.gif)
+
+
 ### 构建依赖关系 ###
 * 本程序的图形渲染部分调用了 SDL 2.0 函数库，需要用户在编译环境下安装 [SDL 2.0 函数库](http://www.libsdl.org/download-2.0.php)（2.0 using zlib license）
 > archlinux 上可以使用 ``` pacman -Syu sdl2 ``` 安装 SDL2 函数库
