@@ -3,7 +3,7 @@
 * 本程序是一种简单的 CHIP-8 虚拟机的实现，使用 C 和 SDL 编写，这是采用 [MIT 许可证](https://mit-license.org) 授权的自由软件
 
 
-![demo](https://github.com/YenyuLoong/qc8vm/raw/master/gifs/demo.gif)
+![demo](https://github.com/AloneCafe/qc8vm/raw/master/gifs/demo.gif)
 
 
 ### 构建依赖关系 ###
