@@ -1,7 +1,7 @@
 ## qc8vm (Quick CHIP-8 Virtual Machine) ##
 ### Quick CHIP-8 虚拟机 ###
 * 本程序是一种简单的 CHIP-8 虚拟机的实现，使用 C 和 SDL 编写，这是采用 [MIT 许可证](https://mit-license.org) 授权的自由软件
-
+* 项目的 ```roms/``` 目录下包含一些可以被本虚拟机执行的二进制 ROM 程序，可供用户直接加载使用，如图片所示
 
 ![demo](https://github.com/AloneCafe/qc8vm/raw/master/gifs/demo.gif)
 
