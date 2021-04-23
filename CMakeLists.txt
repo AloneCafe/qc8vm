@@ -25,4 +25,4 @@ add_executable(
         keyboard.h
         opcode.c
         opcode.h
-        debug.c debug.h)
+        debug.c debug.h common.c)
